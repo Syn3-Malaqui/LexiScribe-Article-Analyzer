@@ -247,8 +247,3 @@ text,topic
 - **Enhanced Vectorization**: Proper string attribute handling
 - **Balanced Training**: Equal category representation
 - **Improved Accuracy**: Near-perfect classification performance
-
-## License
-
-This project is open source. See individual dependency licenses for their respective terms.
-
