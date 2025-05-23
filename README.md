@@ -1,4 +1,4 @@
-# Article Analyzer
+# LexiScribe
 
 A Java-based NLP application that takes an article (as plain text or file), classifies it into a topic, and summarizes it into 2–3 sentences. The application uses machine learning to accurately categorize articles with high confidence and provides detailed text analysis.
 
@@ -11,6 +11,7 @@ A Java-based NLP application that takes an article (as plain text or file), clas
 - **Multiple Input Formats**: Supports plain text, PDF, and DOCX files
 - **Debug Mode**: Provides classification confidence scores and detailed analysis
 - **Cross-Platform**: Runs locally without requiring internet connection
+- **Native Executables**: Windows .exe files available for easy deployment
 
 ## Components
 
@@ -73,25 +74,73 @@ mvn clean compile assembly:single
 
 This creates a self-contained JAR file with all dependencies in the `target` directory.
 
+## Creating Windows Executables
+
+To create native Windows executables (.exe files) that don't require Java to be installed:
+
+### Prerequisites
+- Java 24 or later (includes jpackage tool)
+- Project must be built first (see Building section above)
+
+### Create Executables
+
+**CLI Version:**
+```bash
+jpackage --input target --main-jar article-analyzer-1.0-SNAPSHOT-jar-with-dependencies.jar --main-class com.articleanalyzer.MainApp --name LexiScribe --app-version 1.0 --dest dist --type app-image
+```
+
+**GUI Version:**
+```bash
+jpackage --input target --main-jar article-analyzer-1.0-SNAPSHOT-jar-with-dependencies.jar --main-class com.articleanalyzer.MainAppGUI --name LexiScribe-GUI --app-version 1.0 --dest dist --type app-image
+```
+
+This creates:
+- `dist\LexiScribe\LexiScribe.exe` - CLI version
+- `dist\LexiScribe-GUI\LexiScribe-GUI.exe` - GUI version
+
+Both executables are self-contained and include the Java runtime.
+
+**Package Information:**
+- Executable size: ~448 KB each
+- Total package size: ~696 MB (includes Java runtime and all dependencies)
+- No Java installation required on target systems
+- Portable - can be copied to any Windows machine
+
 ## Running the Application
 
-### Command Line Interface
+### Windows Executables (Recommended)
 
+**CLI Version:**
+```bash
+dist\LexiScribe\LexiScribe.exe
+```
+
+**GUI Version:**
+```bash
+dist\LexiScribe-GUI\LexiScribe-GUI.exe
+```
+
+*Note: The Windows executables include the Java runtime and all dependencies, so no separate Java installation is required.*
+
+### Traditional JAR Files
+
+**Command Line Interface:**
 ```bash
 java -jar target/article-analyzer-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
-### Graphical User Interface
-
+**Graphical User Interface:**
 ```bash
 java -cp target/article-analyzer-1.0-SNAPSHOT-jar-with-dependencies.jar com.articleanalyzer.MainAppGUI
 ```
+
+*Note: These methods require Java 11 or higher to be installed on the system.*
 
 ## Usage
 
 ### CLI Version
 
-1. **Initialization**: The application loads and trains on a 72-example dataset
+1. **Initialization**: LexiScribe loads and trains on a 72-example dataset
 2. **Input Options**:
    - **Text Input**: Paste article content directly
    - **File Input**: Load from text, PDF, or DOCX files
@@ -105,7 +154,7 @@ java -cp target/article-analyzer-1.0-SNAPSHOT-jar-with-dependencies.jar com.arti
 
 ### GUI Version
 
-1. **Launch**: Initialize with the trained classifier
+1. **Launch**: Initialize LexiScribe with the trained classifier
 2. **Input Methods**:
    - Direct text entry in the input area
    - File loading via "Load File" button
@@ -148,7 +197,7 @@ Classification Results:
 ## Advanced Features
 
 ### Debug Mode
-The application provides detailed debugging information:
+LexiScribe provides detailed debugging information:
 - Classification confidence for all categories
 - Feature extraction details
 - Vectorization statistics
